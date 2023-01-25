@@ -17,14 +17,14 @@ declare global {
 
 export const currentUser = async (req: Request, res: Response, next: NextFunction) => {
     if (!req.session?.jwt) {
-        next();
+       return next();
     }
 
     try {
         req.user = await jwt.verify(req.session?.jwt, process.env.JWT_KEY!) as UserPayload;
     } catch (e) {
     }
-    next();
+    return next();
 }
 
 export const isAuth = async (req: Request, res: Response, next: NextFunction) => {
