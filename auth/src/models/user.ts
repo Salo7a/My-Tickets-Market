@@ -1,5 +1,5 @@
 import mongoose, {Schema, Model, Document} from "mongoose";
-import {Password} from "../services/password";
+import {PasswordManager} from "../services/password-manager";
 
 /** Interface describing the properties required for a new user. */
 interface UserAttrs {
@@ -42,11 +42,24 @@ const userSchema = new Schema<UserAttrs>({
         type: String,
         required: true
     }
+}, {
+    toJSON: {
+        transform(doc, ret) {
+            ret.id = ret._id;
+            delete ret._id;
+            delete ret.password;
+        },
+        versionKey: false
+    }
 });
+
+userSchema.virtual('fullName').get(function () {
+    return `${this.firstName} ${this.lastName}`;
+})
 
 userSchema.pre('save', async function () {
     if (this.isModified('password')) {
-        const hashed = await Password.hashPassword(this.get('password'));
+        const hashed = await PasswordManager.hashPassword(this.get('password'));
         this.set('password', hashed);
     }
 });

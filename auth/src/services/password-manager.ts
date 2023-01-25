@@ -5,7 +5,7 @@ import {promisify} from 'util';
 const scryptAsync = promisify(scrypt);
 
 /** Class to manage password hashing and verification*/
-export class Password {
+export class PasswordManager {
     /** Hash a password using scrypt, return the hashed password and the used salt */
     static async hashPassword(password: string) {
         const salt = randomBytes(8).toString('hex');
