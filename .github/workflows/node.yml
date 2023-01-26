@@ -25,4 +25,4 @@ jobs:
         run: npm i
       - name: Run Tests
         working-directory: ./auth
-        run: npm test
+        run: npm test:ci
