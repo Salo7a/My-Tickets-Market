@@ -1,3 +1,4 @@
+[![Node.js CI](https://github.com/Salo7a/My-Tickets-Market/actions/workflows/node.yml/badge.svg)](https://github.com/Salo7a/My-Tickets-Market/actions/workflows/node.yml)
 # E-Commerce App For Event Tickets
 
 Made Using NodeJS Microservices & NextJS
