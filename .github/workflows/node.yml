@@ -18,8 +18,8 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: "19.5.0"
-          working-directory: ./auth
           cache: "npm"
+          cache-dependency-path: ./auth/package-lock.json
       - name: Install Deps
         working-directory: ./auth
         run: npm i
