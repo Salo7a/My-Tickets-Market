@@ -4,9 +4,8 @@ import jwt from 'jsonwebtoken';
 
 import {User} from "../models/user";
 
-import {RequestValidationError} from "../errors/request-validation-error";
-import {BadRequestError} from "../errors/bad-request-error";
-import {validateRequest} from "../middlewares/validate-request";
+import {BadRequestError} from "@as-mytix/common";
+import {validateRequest} from "@as-mytix/common";
 
 const router = express.Router();
 const NAME_REGEX = /^([a-zA-Z\xC0-\uFFFF]+([\-\' ]{0,1}[a-zA-Z\xC0-\uFFFF]+)*[.]{0,1}){1,2}$/

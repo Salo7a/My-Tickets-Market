@@ -2,14 +2,14 @@ import express from "express";
 import 'express-async-errors';
 import {json} from 'body-parser';
 import cookieSession from "cookie-session";
-import {currentUser} from "./middlewares/auth";
+import {currentUser} from "@as-mytix/common";
 
 import {currentUserRouter} from "./routes/current-user";
 import {loginRouter} from "./routes/login";
 import {logoutRouter} from "./routes/logout";
 import {registerRouter} from "./routes/register";
-import {errorHandler} from "./middlewares/error-handler";
-import {NotFoundError} from "./errors/not-found-error";
+import {errorHandler} from "@as-mytix/common";
+import {NotFoundError} from "@as-mytix/common";
 
 const app = express();
 /** Trust secure connections from behind a proxy (Ingress-nginx) */
