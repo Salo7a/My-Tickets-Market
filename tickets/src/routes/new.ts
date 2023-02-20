@@ -1,8 +1,9 @@
 import express, {Request, Response} from "express";
 import {body, validationResult} from "express-validator";
 import {Ticket} from "../models/ticket";
-
+import {TicketCreatedPublisher} from "../events/publishers/ticket-created-publisher";
 import {validateRequest, isAuth} from "@as-mytix/common";
+import {natsWrapper} from "../nats-wrapper";
 
 const router = express.Router();
 
@@ -19,6 +20,13 @@ router.post("/api/tickets", isAuth, [
         });
 
         await ticket.save();
+
+        await new TicketCreatedPublisher(natsWrapper.client).publish({
+            id: ticket.id,
+            title: ticket.title,
+            price: ticket.price,
+            userId: ticket.userId
+        });
 
         res.status(201).send(ticket);
     });

@@ -1,6 +1,7 @@
 import request from 'supertest';
 import {app} from "../../app";
 import {Ticket} from "../../models/ticket";
+import {natsWrapper} from "../../nats-wrapper";
 
 it("should have a route listening for post requests at /api/tickets", async () => {
     const response = await request(app).post("/api/tickets").send({});
@@ -66,7 +67,7 @@ it("should return an error if an invalid price is given", async () => {
 
 });
 
-it("should return a 201 on sending valid inputs", async () => {
+it("should return a 201, create a ticket & publish it on sending valid inputs", async () => {
     let tickets = await Ticket.find({});
     expect(tickets.length).toEqual(0);
     const title = 'Event';
@@ -84,5 +85,5 @@ it("should return a 201 on sending valid inputs", async () => {
     expect(tickets.length).toEqual(1);
     expect(tickets[0].title).toEqual('Event');
     expect(tickets[0].price).toEqual(price);
-
+    expect(natsWrapper.client.publish).toHaveBeenCalled();
 });

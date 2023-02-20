@@ -6,10 +6,10 @@ let mongo: MongoMemoryServer;
 
 declare global {
     var login: () => string[];
-
 }
 
 jest.setTimeout(20000);
+jest.mock('../nats-wrapper');
 
 beforeAll(async () => {
     process.env.JWT_KEY = "test";
@@ -27,6 +27,7 @@ beforeEach(async () => {
     for (let collection of collections) {
         await collection.deleteMany({});
     }
+    jest.clearAllMocks();
 });
 
 afterAll(async () => {

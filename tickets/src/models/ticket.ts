@@ -13,7 +13,7 @@ interface TicketModel extends Model<any> {
 }
 
 
-/** Interface describing the properties a Ticket document has. */
+/** Interface describing the properties a Order document has. */
 interface TicketDoc extends Document {
     title: string,
     price: number,
