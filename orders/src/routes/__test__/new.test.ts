@@ -95,5 +95,5 @@ it("should return a 201, create an order & publish it on sending a valid, unrese
     expect(order.length).toEqual(1);
     expect(response.body.id).toEqual(order[0].id);
     expect(response.body.ticket.id).toEqual(order[0].ticket.id);
-    // expect(natsWrapper.client.publish).toHaveBeenCalled();
+    expect(natsWrapper.client.publish).toHaveBeenCalled();
 });

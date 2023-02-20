@@ -1,7 +1,7 @@
 import express, {Request, Response} from "express";
 import {body, validationResult} from "express-validator";
 import {Order, Ticket, OrderStatus} from "../models";
-import {OrderCreatedPublisher} from "../events/publishers/order-created-publisher";
+import {OrderCreatedPublisher} from "../events";
 import {validateRequest, isAuth, BadRequestError} from "@as-mytix/common";
 import {natsWrapper} from "../nats-wrapper";
 
@@ -40,11 +40,13 @@ router.post("/api/orders", isAuth, [
 
         await order.save();
 
-        // await new OrderCreatedPublisher(natsWrapper.client).publish({
-        //     id: order.id,
-        //     ticketId: order.ticketId,
-        //     userId: order.userId
-        // });
+        await new OrderCreatedPublisher(natsWrapper.client).publish({
+            id: order.id,
+            userId: order.userId,
+            expiresAt: order.expiresAt.toISOString(),
+            status: order.status,
+            ticket: {id: order.ticket.id, price: order.ticket.price},
+        });
 
         res.status(201).send(order);
     });

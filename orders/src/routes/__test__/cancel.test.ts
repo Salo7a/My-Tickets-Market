@@ -2,6 +2,7 @@ import request from 'supertest';
 import {app} from "../../app";
 import mongoose from "mongoose";
 import {Order, OrderStatus} from "../../models";
+import {natsWrapper} from "../../nats-wrapper";
 
 it("should have a route listening for patch requests at /api/orders/:orderId", async () => {
     const response = await request(app).patch("/api/orders/1").send();
@@ -31,4 +32,6 @@ it("should cancel the order under correct conditions", async () => {
     order = await Order.findById(order.id);
 
     expect(order.status).toEqual(OrderStatus.Cancelled);
+
+    expect(natsWrapper.client.publish).toHaveBeenCalled();
 });
