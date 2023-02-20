@@ -8,7 +8,7 @@ class TicketCreatedListener extends Listener<TicketCreatedEvent> {
     readonly subject = Subjects.TicketCreated;
 
     onMessage(data: TicketCreatedEvent['data'], msg: Message): void {
-        console.log(`Data: ${data}`);
+        console.log(`Data: ${JSON.stringify(data)}`);
         msg.ack();
     }
 }
