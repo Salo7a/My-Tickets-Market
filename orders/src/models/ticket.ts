@@ -3,11 +3,12 @@ import {Order, OrderStatus} from "./order";
 
 /** Interface describing the properties required for a new ticket. */
 interface TicketAttrs {
+    id?: string,
     title: string,
     price: number
 }
 
-/** Interface describing the properties a Order document has. */
+/** Interface describing the properties a ticket document has. */
 export interface TicketDoc extends Document {
     title: string,
     price: number,
@@ -41,7 +42,11 @@ const ticketSchema = new Schema<TicketAttrs>({
 
 
 ticketSchema.statics.build = (attrs: TicketAttrs) => {
-    return new Ticket(attrs)
+    return new Ticket({
+        _id: attrs.id,
+        title: attrs.title,
+        price: attrs.price
+    })
 }
 
 ticketSchema.methods.isReserved = async function () {
