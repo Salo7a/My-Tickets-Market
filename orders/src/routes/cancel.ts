@@ -18,7 +18,11 @@ router.patch("/api/orders/:orderId", isAuth, async (req: Request, res: Response)
         })
         await order.save();
         await new OrderCancelledPublisher(natsWrapper.client).publish({
-            id: order.id, status: OrderStatus.Cancelled, ticket: {id: order.ticket.id},
+            id: order.id,
+            status: OrderStatus.Cancelled,
+            ticket: {id: order.ticket.id},
+            updatedAt: order.updatedAt,
+            version: order.version
         });
         res.status(204).send();
     } else {

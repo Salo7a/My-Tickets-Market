@@ -1,6 +1,8 @@
 import {app} from "./app";
 import mongoose from "mongoose";
 import {natsWrapper} from "./nats-wrapper";
+import {OrderCreatedListener} from "./events/listeners/order-created-listener";
+import {OrderCancelledListener} from "./events/listeners/order-cancelled-listener";
 
 const shutdown = () => {
     mongoose.connection.close(() => {
@@ -25,8 +27,13 @@ const startup = async () => {
     try {
         await natsWrapper.connect(process.env.NATS_CLUSTER_ID, process.env.NATS_CLIENT_ID, process.env.NATS_URL)
         mongoose.set('strictQuery', true); // Preparation for mongoose v8 changes
+
         await mongoose.connect(process.env.MONGO_URI);
         console.log("MongoDB Connection Established");
+
+        new OrderCancelledListener(natsWrapper.client).listen();
+        new OrderCreatedListener(natsWrapper.client).listen();
+
     } catch (e) {
         console.log(e);
     }

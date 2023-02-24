@@ -63,6 +63,7 @@ global.login = () => {
 
 global.createOrder = async (eventTitle: string, ticketPrice: number, userId: string) => {
     const ticket = Ticket.build({
+        id: new mongoose.Types.ObjectId().toHexString(),
         title: eventTitle,
         price: ticketPrice
     });

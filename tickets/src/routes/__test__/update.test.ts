@@ -81,7 +81,30 @@ it("should update the ticket provided with valid inputs", async () => {
 
     expect(response.body.title).toEqual('Event 4');
     expect(response.body.price).toEqual(50);
-    ticket = await Ticket.findById(ticket.id);
-    expect(ticket.title).toEqual('Event 4');
-    expect(ticket.price).toEqual(50);
+    let updatedTicket = await Ticket.findById(ticket.id);
+    expect(updatedTicket!.title).toEqual('Event 4');
+    expect(updatedTicket!.price).toEqual(50);
 });
+
+it("should reject the ticket update if the ticket is reserved", async () => {
+    const title = 'Event 1';
+    const price = 800;
+    const userId = "123456";
+
+    let orderId = new mongoose.Types.ObjectId()
+
+    let ticket = Ticket.build({
+        title, price, userId
+    });
+
+    ticket.set({orderId})
+
+    await ticket.save();
+
+    await request(app).put(`/api/tickets/${ticket.id}`)
+        .set('Cookie', login()).send({
+            title: "Event 4",
+            price: 50
+        }).expect(400);
+});
+

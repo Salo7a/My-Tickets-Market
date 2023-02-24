@@ -46,6 +46,7 @@ it("should return an error if the ticket is not found", async () => {
 
 it("should return an error if the ticket is reserved", async () => {
     const ticket = Ticket.build({
+        id: new mongoose.Types.ObjectId().toHexString(),
         title: "Concert",
         price: 20
     });
@@ -75,6 +76,7 @@ it("should return an error if the ticket is reserved", async () => {
 
 it("should return a 201, create an order & publish it on sending a valid, unreserved ticketId", async () => {
     const ticket = Ticket.build({
+        id: new mongoose.Types.ObjectId().toHexString(),
         title: "Concert",
         price: 0
     });

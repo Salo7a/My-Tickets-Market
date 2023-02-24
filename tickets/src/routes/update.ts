@@ -1,6 +1,6 @@
 import express, {Request, Response} from "express";
 import {Ticket} from "../models/ticket";
-import {isAuth, NotAuthorizedError, NotFoundError, validateRequest} from "@as-mytix/common/build";
+import {BadRequestError, isAuth, NotAuthorizedError, NotFoundError, validateRequest} from "@as-mytix/common/build";
 import mongoose from 'mongoose'
 import {body} from "express-validator";
 import {TicketUpdatedPublisher} from '../events/publishers/ticket-updated-publisher'
@@ -18,14 +18,20 @@ router.put("/api/tickets/:id", isAuth, [
     const ticket = isValid && await Ticket.findById(id);
     if (ticket) {
         if (ticket.userId !== req.user!.id) throw new NotAuthorizedError()
+
+        if (ticket.orderId) throw new BadRequestError("This ticket is currently reserved")
+
         ticket.set({
             title,
             price
         });
+
         await ticket.save();
+
         await new TicketUpdatedPublisher(natsWrapper.client).publish({
-            id: ticket.id, price: ticket.price, title: ticket.title, userId: ticket.userId
+            id: ticket.id, price: ticket.price, title: ticket.title, userId: ticket.userId, version: ticket.version
         });
+
         res.send(ticket);
     } else {
         throw new NotFoundError();

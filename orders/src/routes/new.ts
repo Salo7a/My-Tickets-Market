@@ -46,6 +46,7 @@ router.post("/api/orders", isAuth, [
             expiresAt: order.expiresAt.toISOString(),
             status: order.status,
             ticket: {id: order.ticket.id, price: order.ticket.price},
+            version: order.version
         });
 
         res.status(201).send(order);
