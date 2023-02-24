@@ -43,8 +43,7 @@ const ticketSchema = new Schema<TicketDoc>({
             ret.id = ret._id;
             delete ret._id;
         }
-    },
-    timestamps: true
+    }
 });
 
 
