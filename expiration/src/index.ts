@@ -22,7 +22,6 @@ const startup = async () => {
     } catch (e) {
         console.log(e);
     }
-
 }
 
 startup();
