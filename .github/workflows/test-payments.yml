@@ -1,0 +1,22 @@
+name: Test Payments
+
+on:
+  pull_request
+  
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Use Node.js 19.5.0
+        uses: actions/setup-node@v3
+        with:
+          node-version: "19.5.0"
+          cache: "npm"
+          cache-dependency-path: ./payments/package-lock.json
+      - name: Install Deps
+        working-directory: ./payments
+        run: npm i
+      - name: Run Tests
+        working-directory: ./payments
+        run: npm run test:ci
