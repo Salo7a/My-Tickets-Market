@@ -26,8 +26,8 @@ const startup = async () => {
 
     try {
         await natsWrapper.connect(process.env.NATS_CLUSTER_ID, process.env.NATS_CLIENT_ID, process.env.NATS_URL)
-        mongoose.set('strictQuery', true); // Preparation for mongoose v8 changes
 
+        mongoose.set('strictQuery', true); // Preparation for mongoose v8 changes
         await mongoose.connect(process.env.MONGO_URI);
         console.log("MongoDB Connection Established");
 
@@ -35,7 +35,8 @@ const startup = async () => {
         new OrderCreatedListener(natsWrapper.client).listen();
 
     } catch (e) {
-        console.log(e);
+        console.error(e);
+        process.exit(50);
     }
 
     app.listen(3000, () => {

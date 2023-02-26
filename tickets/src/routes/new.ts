@@ -9,14 +9,17 @@ const router = express.Router();
 
 router.post("/api/tickets", isAuth, [
         body("title").not().isEmpty().withMessage("Event title is not valid"),
-        body("price").isFloat({min: 0}).withMessage("Price must be greater than zero")
+        body("price").isFloat({min: 0}).withMessage("Price must be greater than zero"),
+        body("type").not().isEmpty().withMessage("Ticket type cannot be empty"),
+        body("seat").not().isEmpty().withMessage("Ticket seat cannot be empty"),
+
     ], validateRequest,
     async (req: Request, res: Response) => {
-        const {title, price} = req.body;
+        const {title, price, type, seat} = req.body;
         const userId = req.user!.id;
 
         const ticket = Ticket.build({
-            title, price, userId
+            title, price, userId, type, seat
         });
 
         await ticket.save();

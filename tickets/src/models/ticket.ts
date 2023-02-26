@@ -7,7 +7,7 @@ interface TicketAttrs {
     price: number,
     userId: string,
     type?: string,
-    location?: string
+    seat?: string
 }
 
 /** Interface describing the properties a ticket model has. */
@@ -22,7 +22,7 @@ interface TicketDoc extends Document {
     price: number,
     userId: string,
     type?: string,
-    location?: string,
+    seat?: string,
     orderId?: string,
     createdAt: string,
     updatedAt: string,
@@ -45,7 +45,7 @@ const ticketSchema = new Schema<TicketDoc>({
     type: {
         type: String,
     },
-    location: {
+    seat: {
         type: String,
     },
     orderId: {
