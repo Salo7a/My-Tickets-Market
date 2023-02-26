@@ -9,7 +9,7 @@ import mongoose from "mongoose";
 
 const router = express.Router();
 
-const EXPIRATION_WINDOW_SECONDS = 30;
+const EXPIRATION_WINDOW_SECONDS = 100;
 
 router.post("/api/orders", isAuth, [
         body("ticketId").notEmpty()
