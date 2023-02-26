@@ -72,12 +72,16 @@ it("should return a 201, create a ticket & publish it on sending valid inputs", 
     expect(tickets.length).toEqual(0);
     const title = 'Event';
     const price = 800;
+    const type = 'Gold';
+    const seat = 'G-5';
     await request(app)
         .post("/api/tickets")
         .set('Cookie', login())
         .send({
             title,
-            price
+            price,
+            type,
+            seat
         })
         .expect(201);
 

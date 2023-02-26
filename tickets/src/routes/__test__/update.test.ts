@@ -7,7 +7,9 @@ it("should return a 404 if the provided ticket id doesn't exist", async () => {
     const id = new mongoose.Types.ObjectId().toHexString();
     await request(app).put(`/api/tickets/${id}`).set('Cookie', login()).send({
         title: "Event",
-        price: 50
+        price: 50,
+        type: 'Silver',
+        seat: 'F-7'
     }).expect(404);
 });
 
@@ -23,16 +25,21 @@ it("should return a 401 if a user doesn't own the ticket he's trying to update",
     const title = 'Event 1';
     const price = 800;
     const userId = "1234";
+    const type = 'Gold';
+    const seat = 'G-5';
 
     let ticket = Ticket.build({
-        title, price, userId
+        title, price, userId, type, seat
     });
 
     await ticket.save();
+
     await request(app).put(`/api/tickets/${ticket.id}`)
         .set('Cookie', login()).send({
             title: "Event 2",
-            price: 50
+            price: 50,
+            type: 'Silver',
+            seat: 'F-7'
         }).expect(401);
 });
 
@@ -65,9 +72,11 @@ it("should update the ticket provided with valid inputs", async () => {
     const title = 'Event 1';
     const price = 800;
     const userId = "123456";
+    const type = 'Gold';
+    const seat = 'G-5';
 
     let ticket = Ticket.build({
-        title, price, userId
+        title, price, userId, type, seat
     });
 
     await ticket.save();
@@ -76,7 +85,9 @@ it("should update the ticket provided with valid inputs", async () => {
     let response = await request(app).put(`/api/tickets/${ticket.id}`)
         .set('Cookie', cookie).send({
             title: "Event 4",
-            price: 50
+            price: 50,
+            type: 'Silver',
+            seat: 'F-7'
         }).expect(200);
 
     expect(response.body.title).toEqual('Event 4');
