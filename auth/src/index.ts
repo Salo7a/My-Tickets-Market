@@ -11,7 +11,7 @@ const startup = async () => {
         await mongoose.connect(process.env.MONGO_URI);
         console.log("MongoDB Connection Established");
     } catch (e) {
-        console.log(e);
+        console.error(e);
     }
 
     app.listen(3000, () => {

@@ -44,7 +44,7 @@ const startup = async () => {
         new PaymentCreatedListener(natsWrapper.client, true).listen();
 
     } catch (e) {
-        console.log(e);
+        console.error(e);
     }
 
     app.listen(3000, () => {
