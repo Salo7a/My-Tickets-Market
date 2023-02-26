@@ -1,0 +1,338 @@
+{
+  "info": {
+    "_postman_id": "6b60f34c-ba7c-4bad-abf5-560c7fea5b28",
+    "name": "Tickets",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Register",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "default"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"email\": \"test@example.com\",\r\n    \"password\": \"password\",\r\n    \"firstName\": \"John\",\r\n    \"lastName\": \"Doe\"\r\n}"
+        },
+        "url": {
+          "raw": "https://tickets.dev/api/users/register/",
+          "protocol": "https",
+          "host": [
+            "tickets",
+            "dev"
+          ],
+          "path": [
+            "api",
+            "users",
+            "register",
+            ""
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Login",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "default"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"email\": \"test@example.com\",\r\n    \"password\": \"password\"\r\n}"
+        },
+        "url": {
+          "raw": "https://tickets.dev/api/users/login/",
+          "protocol": "https",
+          "host": [
+            "tickets",
+            "dev"
+          ],
+          "path": [
+            "api",
+            "users",
+            "login",
+            ""
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Current User Info",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://tickets.dev/api/users/currentuser/",
+          "protocol": "https",
+          "host": [
+            "tickets",
+            "dev"
+          ],
+          "path": [
+            "api",
+            "users",
+            "currentuser",
+            ""
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Logout",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://tickets.dev/api/users/logout/",
+          "protocol": "https",
+          "host": [
+            "tickets",
+            "dev"
+          ],
+          "path": [
+            "api",
+            "users",
+            "logout",
+            ""
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Create Ticket",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"title\": \"Event 1\",\r\n    \"price\": 90,\r\n    \"type\": \"Gold\",\r\n    \"seat\": \"G8\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://tickets.dev/api/tickets/",
+          "protocol": "https",
+          "host": [
+            "tickets",
+            "dev"
+          ],
+          "path": [
+            "api",
+            "tickets",
+            ""
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get Ticket Info",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://tickets.dev/api/tickets/63fb96094cdbfa46fe89ea70",
+          "protocol": "https",
+          "host": [
+            "tickets",
+            "dev"
+          ],
+          "path": [
+            "api",
+            "tickets",
+            "63fb96094cdbfa46fe89ea70"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Update Ticket",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "default"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"title\": \"Event 1\",\r\n    \"price\": 90\r\n}"
+        },
+        "url": {
+          "raw": "https://tickets.dev/api/tickets/63fb96094cdbfa46fe89ea70",
+          "protocol": "https",
+          "host": [
+            "tickets",
+            "dev"
+          ],
+          "path": [
+            "api",
+            "tickets",
+            "63fb96094cdbfa46fe89ea70"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "New Order",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "default"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"ticketId\": \"63fb96094cdbfa46fe89ea70\"\r\n}"
+        },
+        "url": {
+          "raw": "https://tickets.dev/api/orders/",
+          "protocol": "https",
+          "host": [
+            "tickets",
+            "dev"
+          ],
+          "path": [
+            "api",
+            "orders",
+            ""
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Order Info",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://tickets.dev/api/orders/63fb9628a493cfa40b4ec81a",
+          "protocol": "https",
+          "host": [
+            "tickets",
+            "dev"
+          ],
+          "path": [
+            "api",
+            "orders",
+            "63fb9628a493cfa40b4ec81a"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Cancel Order",
+      "request": {
+        "method": "PATCH",
+        "header": [],
+        "url": {
+          "raw": "https://tickets.dev/api/orders/63f4cdf56202b306e5c67092",
+          "protocol": "https",
+          "host": [
+            "tickets",
+            "dev"
+          ],
+          "path": [
+            "api",
+            "orders",
+            "63f4cdf56202b306e5c67092"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get Orders",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://tickets.dev/api/orders/",
+          "protocol": "https",
+          "host": [
+            "tickets",
+            "dev"
+          ],
+          "path": [
+            "api",
+            "orders",
+            ""
+          ],
+          "query": [
+            {
+              "key": "",
+              "value": null,
+              "disabled": true
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Payment",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "default"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"orderId\": \"63fb9628a493cfa40b4ec81a\",\r\n    \"token\": \"tok_visa\"\r\n}"
+        },
+        "url": {
+          "raw": "https://tickets.dev/api/payments/",
+          "protocol": "https",
+          "host": [
+            "tickets",
+            "dev"
+          ],
+          "path": [
+            "api",
+            "payments",
+            ""
+          ],
+          "query": [
+            {
+              "key": "",
+              "value": null,
+              "disabled": true
+            }
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}
