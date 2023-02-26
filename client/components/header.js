@@ -4,6 +4,8 @@ const header = ({currentUser}) => {
     const links = [
         !currentUser && {label: 'Register', href: '/auth/register'},
         !currentUser && {label: 'Login', href: '/auth/login'},
+        currentUser && {label: 'Sell Tickets', href: '/tickets/new'},
+        currentUser && {label: 'My Orders', href: '/orders'},
         currentUser && {label: 'Logout', href: '/auth/logout'}
     ].filter(linkFilter => linkFilter);
     return <nav className="navbar navbar-expand-lg bg-light">
@@ -14,14 +16,12 @@ const header = ({currentUser}) => {
 
                 <ul className="navbar-nav d-flex align-items-center">
                     {currentUser &&
-                        <span className="navbar-text">Hi, {currentUser.fullName}</span>
+                        <span key={'name'} className="navbar-text">Hi, {currentUser.fullName}</span>
                     }
                     {links.map(({label, href}) => (
-                        <div>
-                            <li key={label} className={'nav-item'}>
-                                <Link href={href} className={'nav-link'}>{label}</Link>
-                            </li>
-                        </div>
+                        <li key={label} className={'nav-item'}>
+                            <Link href={href} className={'nav-link'}>{label}</Link>
+                        </li>
                     ))}
                 </ul>
             </div>
