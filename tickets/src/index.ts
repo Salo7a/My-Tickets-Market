@@ -36,7 +36,6 @@ const startup = async () => {
 
     } catch (e) {
         console.error(e);
-        process.exit(50);
     }
 
     app.listen(3000, () => {
